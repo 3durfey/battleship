@@ -1,3 +1,4 @@
+//factory function for creating ships
 function createShip(inputLength) {
   function hit() {
     if (this.numOfHits < this.length) this.numOfHits++;
@@ -10,8 +11,9 @@ function createShip(inputLength) {
 
   return { length, numOfHits, sunk, hit };
 }
-
+//factory function for creating board
 function createGameboard() {
+  let shipArray = [];
   let board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,21 +27,66 @@ function createGameboard() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
   function addShip(ship, xStart, yStart, direction) {
-    this.board[xStart][yStart] = 3;
+    let valid = true;
+    let origionalX = xStart;
+    let origionalY = yStart;
 
     for (let x = 0; x < ship.length; x++) {
-      this.board[xStart][yStart] = 1;
+      if (
+        this.board[xStart][yStart] !== 0 &&
+        this.board[xStart][yStart] !== "x"
+      )
+        valid = false;
       if (direction === "x") xStart++;
       else yStart++;
     }
+    if (valid === true) {
+      shipArray.push(ship);
+      for (let x = 0; x < ship.length; x++) {
+        this.board[origionalX][origionalY] = shipArray.length;
+        if (direction === "x") origionalX++;
+        else origionalY++;
+      }
+    }
   }
-  return { board, addShip };
+  function allSunk() {
+    for (x in shipArray) {
+      if (shipArray[x].sunk === false) return false;
+    }
+    return true;
+  }
+  function receiveAttack(x, y) {
+    if (Number.isInteger(this.board[x][y]) && this.board[x][y] !== 0) {
+      shipArray[this.board[x][y] - 1].hit();
+      let tempShip = this.board[x][y];
+      this.board[x][y] = "H";
+      console.log(shipArray[tempShip - 1]);
+    } else if (this.board[x][y] === "M" || this.board[x][y] === "H")
+      return false;
+    else this.board[x][y] = "M";
+  }
+  return { board, addShip, receiveAttack, shipArray, allSunk };
 }
-/*
-let ship = createShip(3);
-let board = createGameboard();
 
-board.addShip(ship, 0, 0, "y");
+function createPlayer(name) {
+  function turn(x, y, gameBoard) {
+    let result = gameBoard.receiveAttack(x, y);
+  }
+  return { name };
+}
+
+let ship = createShip(3);
+let ship1 = createShip(3);
+let board = createGameboard();
+board.addShip(ship, 0, 0, "x");
+board.addShip(ship1, 4, 0, "x");
+board.receiveAttack(0, 0);
+board.receiveAttack(1, 0);
+board.receiveAttack(2, 0);
+board.receiveAttack(4, 0);
+board.receiveAttack(5, 0);
+board.receiveAttack(6, 0);
+console.log(board.allSunk());
 let str = "";
 for (let x = 0; x < 10; x++) {
   for (let y = 0; y < 10; y++) {
@@ -48,5 +95,5 @@ for (let x = 0; x < 10; x++) {
   console.log(str);
   str = "";
 }
-*/
-export { createShip, createGameboard };
+
+//export { createShip, createGameboard };
