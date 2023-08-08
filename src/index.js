@@ -1,99 +1,67 @@
-//factory function for creating ships
-function createShip(inputLength) {
-  function hit() {
-    if (this.numOfHits < this.length) this.numOfHits++;
-    if (this.length === this.numOfHits) this.sunk = true;
+//imports for creating objects
+import {
+  createShip,
+  createGameboard,
+  createPlayer,
+} from "./factoryFunctions.js";
+
+import "./style.css";
+
+//game variables used in gameplay
+let turnName = [2];
+
+function game() {}
+// Carrier (occupies 5 spaces), Battleship (4), Cruiser (3), Submarine (3), and Destroyer (2).
+
+//logic to place AI(computer) ships
+const carrierP1 = createShip(5);
+const battleshipP1 = createShip(4);
+const cruiserP1 = createShip(3);
+const submarineP1 = createShip(3);
+const destroyerP1 = createShip(2);
+const shipsP1 = {
+  carrierP1,
+  battleshipP1,
+  cruiserP1,
+  submarineP1,
+  destroyerP1,
+};
+function getCoordinates() {}
+let gameboardP1 = createGameboard();
+function placeAIShips() {
+  for (let x = 0; x < shipsP1.length; x++) {
+    get;
+    gameboardP1.addShip(shipsP1[x], x, y, direction);
   }
-
-  let length = inputLength;
-  let numOfHits = 0;
-  let sunk = false;
-
-  return { length, numOfHits, sunk, hit };
 }
-//factory function for creating board
-function createGameboard() {
-  let shipArray = [];
-  let board = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  function addShip(ship, xStart, yStart, direction) {
-    let valid = true;
-    let origionalX = xStart;
-    let origionalY = yStart;
 
-    for (let x = 0; x < ship.length; x++) {
-      if (
-        this.board[xStart][yStart] !== 0 &&
-        this.board[xStart][yStart] !== "x"
-      )
-        valid = false;
-      if (direction === "x") xStart++;
-      else yStart++;
+const carrierP2 = createShip(5);
+const battleshipP2 = createShip(4);
+const cruiserP2 = createShip(3);
+const submarineP2 = createShip(3);
+const destroyerP2 = createShip(2);
+const shipsP2 = {
+  carrierP2,
+  battleshipP2,
+  cruiserP2,
+  submarineP2,
+  destroyerP2,
+};
+let gameboardP2 = createGameboard();
+
+gameboardP2.addShip(carrierP2, 0, 0, "x");
+gameboardP2.addShip(battleshipP2, 0, 3, "x");
+gameboardP2.addShip(battleshipP2, 6, 3, "y");
+
+printBoard(gameboardP2);
+
+function printBoard(gameboard) {
+  let str = "";
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      str += gameboard.board[x][y];
     }
-    if (valid === true) {
-      shipArray.push(ship);
-      for (let x = 0; x < ship.length; x++) {
-        this.board[origionalX][origionalY] = shipArray.length;
-        if (direction === "x") origionalX++;
-        else origionalY++;
-      }
-    }
+    console.log(str);
+    str = "";
   }
-  function allSunk() {
-    for (x in shipArray) {
-      if (shipArray[x].sunk === false) return false;
-    }
-    return true;
-  }
-  function receiveAttack(x, y) {
-    if (Number.isInteger(this.board[x][y]) && this.board[x][y] !== 0) {
-      shipArray[this.board[x][y] - 1].hit();
-      let tempShip = this.board[x][y];
-      this.board[x][y] = "H";
-      console.log(shipArray[tempShip - 1]);
-    } else if (this.board[x][y] === "M" || this.board[x][y] === "H")
-      return false;
-    else this.board[x][y] = "M";
-  }
-  return { board, addShip, receiveAttack, shipArray, allSunk };
 }
-
-function createPlayer(name) {
-  function turn(x, y, gameBoard) {
-    let result = gameBoard.receiveAttack(x, y);
-  }
-  return { name };
-}
-
-let ship = createShip(3);
-let ship1 = createShip(3);
-let board = createGameboard();
-board.addShip(ship, 0, 0, "x");
-board.addShip(ship1, 4, 0, "x");
-board.receiveAttack(0, 0);
-board.receiveAttack(1, 0);
-board.receiveAttack(2, 0);
-board.receiveAttack(4, 0);
-board.receiveAttack(5, 0);
-board.receiveAttack(6, 0);
-console.log(board.allSunk());
-let str = "";
-for (let x = 0; x < 10; x++) {
-  for (let y = 0; y < 10; y++) {
-    str += board.board[x][y];
-  }
-  console.log(str);
-  str = "";
-}
-
-//export { createShip, createGameboard };

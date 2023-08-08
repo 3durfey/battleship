@@ -47,10 +47,12 @@ function createGameboard() {
         if (direction === "x") origionalX++;
         else origionalY++;
       }
-    }
+      return true;
+    } else return false;
   }
   function allSunk() {
-    for (x in shipArray) {
+    console.log(shipArray.length);
+    for (let x = 0; x < shipArray.length; x++) {
       if (shipArray[x].sunk === false) return false;
     }
     return true;
@@ -86,25 +88,4 @@ function createPlayer(name, ai, gameboard) {
   return { name };
 }
 
-let ship = createShip(3);
-let ship1 = createShip(3);
-let board = createGameboard();
-board.addShip(ship, 0, 0, "x");
-board.addShip(ship1, 4, 0, "x");
-board.receiveAttack(0, 0);
-board.receiveAttack(1, 0);
-board.receiveAttack(2, 0);
-board.receiveAttack(4, 0);
-board.receiveAttack(5, 0);
-board.receiveAttack(6, 0);
-console.log(board.allSunk());
-let str = "";
-for (let x = 0; x < 10; x++) {
-  for (let y = 0; y < 10; y++) {
-    str += board.board[x][y];
-  }
-  console.log(str);
-  str = "";
-}
-
-export { createShip, createGameboard };
+export { createShip, createGameboard, createPlayer };
