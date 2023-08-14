@@ -13,12 +13,99 @@ body {
 header {
   background-color: grey;
   flex-grow: 0.15;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
 }
 .center {
   background-color: black;
-  flex-grow: 0.9;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nameForm {
+  display: flex;
+  color: black;
+  font-size: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gameboard {
+  height: 800px;
+  width: 100%;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 footer {
   background-color: grey;
   flex-grow: 0.05;
+}
+.gameboardHolder {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin-right: 20px;
+}
+.pieceHolder {
+  height: 500px;
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  background-color: orange;
+}
+.squares {
+  background-color: pink;
+  border: solid black;
+  height: 50px;
+  width: 50px;
+}
+.carrier {
+  height: 265px;
+  width: 50px;
+  background-color: green;
+  border-radius: solid;
+  position: relative;
+}
+.battleship {
+  height: 250px;
+  width: 50px;
+  background-color: pink;
+  border: solid black;
+  position: relative;
+}
+.cruiser {
+  height: 155px;
+  width: 50px;
+  background-color: red;
+  border: solid black;
+  position: relative;
+}
+.sub {
+  height: 155px;
+  width: 50px;
+  background-color: yellow;
+  border: solid black;
+  position: relative;
+}
+.battleship {
+  height: 210px;
+  width: 50px;
+  background-color: blue;
+  border: solid black;
+  position: relative;
+}
+.destroyer {
+  height: 100px;
+  width: 50px;
+  background-color: darkmagenta;
+  border: solid black;
+  position: relative;
+}
+.squares:hover {
+  background-color: yellow;
 }

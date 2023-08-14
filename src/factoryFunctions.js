@@ -51,7 +51,6 @@ function createGameboard() {
     } else return false;
   }
   function allSunk() {
-    console.log(shipArray.length);
     for (let x = 0; x < shipArray.length; x++) {
       if (shipArray[x].sunk === false) return false;
     }
@@ -73,7 +72,12 @@ function createGameboard() {
 //factory function for players in games
 function createPlayer(name, ai, gameboard) {
   let apponentBoard = gameboard;
+  let userName = name;
   let isAI = ai;
+  function setName(input) {
+    userName = input;
+    return userName;
+  }
   function turn(x, y) {
     if (isAI) {
       do {
@@ -85,7 +89,7 @@ function createPlayer(name, ai, gameboard) {
     }
     return true;
   }
-  return { name };
+  return { userName, turn, setName };
 }
 
 export { createShip, createGameboard, createPlayer };
